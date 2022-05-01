@@ -37,8 +37,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rake", "~> 13.0"
   spec.add_dependency "rspec", "~> 3.0"
   spec.add_dependency "yard", "~> 0.9"
-
-
+  spec.add_dependency "activerecord", "~> 5.0.0"
+  spec.add_dependency "sqlite3", "~> 1.3.0"
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
 end
