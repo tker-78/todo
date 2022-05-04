@@ -15,6 +15,16 @@ module Todo
           opt.on('-c VAL', '--content=VAL', 'task content') { |v| options[:content] = v }
         end
 
+        sub_command_parsers['list'] = OptionParser.new do |opt|
+          opt.on('-s VAL', '--status=VAL', 'list status') { |v| options[:status] = v }
+        end
+
+        sub_command_parsers['update'] = OptionParser.new do |opt|
+          opt.on('-n VAL', '--name=VAL', 'update name') { |v| options[:name] = v }
+          opt.on('-c VAL', '--content=VAL', 'update content') { |v| options[:content] = v }
+          opt.on('-s VAL', '--status=VAL', 'update status') { |v| options[:status] = v }
+        end
+
         command_parser = OptionParser.new do |opt|
           opt.on_head('-v', '--version', 'Show program version') do |v|
             opt.version = Todo::VERSION
