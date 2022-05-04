@@ -12,6 +12,10 @@ module Todo
       'NOT_YET' => NOT_YET,
       'DONE' => DONE,
       'PENDING' => PENDING
-  }.freeze
+    }.freeze
+
+    validates :name, presence: true, length: {minimum: 140}
+    validates :content, presence: true
+    validates :status, numericality: true, inclusion: {in: STATUS.values}
   end
 end
