@@ -10,6 +10,8 @@ module Todo
     end
 
     def execute
+      options = Options.parse!(@argv)
+
       DB.prepare
     end
 
