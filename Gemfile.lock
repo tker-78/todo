@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    todo (0.1.0)
+    todo (1.0.0)
       activerecord (~> 5.0.0)
       bundler (~> 2.0)
       rake (~> 13.0)
