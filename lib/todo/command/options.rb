@@ -11,6 +11,7 @@ module Todo
 
         # サブコマンドのパーサー群
         sub_command_parsers = Hash.new do |k, v|
+          # サブコマンドに登録していないコマンドライン引数を受け取った場合、メッセージを返す
           raise ArgumentError, "'#{v}' is not todo sub command"
         end
 
@@ -33,6 +34,11 @@ module Todo
           opt.on('-c VAL', '--content=VAL', 'update content') { |v| options[:content] = v }
           opt.on('-s VAL', '--status=VAL', 'update status') { |v| options[:status] = v }
           opt.on_tail('-h', '--help', 'Show this message') { |v| help_sub_command(opt) }
+        end
+
+        sub_command_parsers['delete'] = OptionParser.new do |opt|
+          opt.banner = 'Usage: delete id'
+          opt.on_tail('-h', '--help', "Show this message") { |v| help_sub_command(opt) }
         end
 
         def self.help_sub_command(parser)
@@ -71,6 +77,12 @@ module Todo
           command_parser.order!(argv)
           options[:command] = argv.shift
           sub_command_parsers[options[:command]].parse!(argv)
+
+          # updateとdeleteの場合はidを取得する
+          if %w(update delete).include?(options[:command])
+            raise ArgumentError, "#{options[:command]} id not found." if argv.empty?
+            options[:id] = Integer(argv.first)
+          end
         rescue OptionParser::MissingArgument, OptionParser::InvalidOption, ArgumentError => e
           abort e.message
         end
